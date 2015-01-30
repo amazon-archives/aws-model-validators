@@ -9,8 +9,6 @@
       }
     }
   },
-  "api": {
-  },
   "errors": [
     "#/resources/ResourceName/identifiers must have unique names"
   ]

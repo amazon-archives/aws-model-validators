@@ -66,18 +66,22 @@ module Aws
         nil
       end
 
+      # @return [Hash]
       def api
         model(:api)
       end
 
+      # @return [Hash]
       def paginators
         model(:paginators)
       end
 
+      # @return [Hash]
       def waiters
         model(:waiters)
       end
 
+      # @return [Hash]
       def resources
         model(:resources)
       end
