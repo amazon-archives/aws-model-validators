@@ -85,7 +85,10 @@ module Aws
       # Reduce inspect string to something useful.
       # @api private
       def inspect
-        "#<#{self.class.name} path=#{path.inspect} value=#{value_inspect} warnings=#{warnings.inspect} errors=#{errors.inspect}>"
+        parts = %w(path value warnings errors).map { |attr|
+          attr == 'value' ? attr_inspect : send(attr).inspect
+        }
+        "#<#{self.class.name} #{parts.join(' ')}>"
       end
 
       private
