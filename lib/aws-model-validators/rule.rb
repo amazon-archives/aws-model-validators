@@ -3,6 +3,7 @@ module Aws
     class Rule
 
       def initialize(pattern, &block)
+        pattern = Regexp.escape(pattern).gsub('\*', '(\w+|\d+)')
         @pattern = Regexp.new('^' + pattern + '$')
         @block = block
       end
