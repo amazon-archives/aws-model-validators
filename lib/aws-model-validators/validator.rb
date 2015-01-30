@@ -19,11 +19,11 @@ module Aws
       #
       def validate(models = {})
         models = load_models(models)
-        errors = validate_against_schema(models)
-        if errors.empty?
-          validate_against_rules(new_context(models))
+        schema_errors = validate_schema(models)
+        if schema_errors.empty?
+          validate_rules(new_context(models))
         else
-          errors
+          schema_errors
         end
       end
 
@@ -41,11 +41,11 @@ module Aws
         models[self.class.model_name]
       end
 
-      def validate_against_schema(models)
+      def validate_schema(models)
         JSON::Validator.fully_validate(self.class.schema, target(models))
       end
 
-      def validate_against_rules(context)
+      def validate_rules(context)
         self.class.rules.each do |rule|
           if matches = rule.matches(context.path)
             rule.apply(context, matches)
@@ -58,13 +58,13 @@ module Aws
 
       def validate_hash(context)
         context.value.keys.each do |key|
-          validate_against_rules(context.child(key))
+          validate_rules(context.child(key))
         end
       end
 
       def validate_array(context)
         (0...context.value.size).each do |index|
-          validate_against_rules(context.child(index))
+          validate_rules(context.child(index))
         end
       end
 
