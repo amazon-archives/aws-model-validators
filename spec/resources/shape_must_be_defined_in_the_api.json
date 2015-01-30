@@ -1,0 +1,16 @@
+{
+  "resources": {
+    "resources": {
+      "ResourceName": {
+        "shape": "ShapeName"
+      }
+    }
+  },
+  "api": {
+    "shapes": {
+    }
+  },
+  "errors": [
+    "#/resources/ResourceName/shape not found at api#/shapes/ShapeName"
+  ]
+}

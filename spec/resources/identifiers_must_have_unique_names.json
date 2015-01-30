@@ -1,0 +1,17 @@
+{
+  "resources": {
+    "resources": {
+      "ResourceName": {
+        "identifiers": [
+          { "name": "Id" },
+          { "name": "Id" }
+        ]
+      }
+    }
+  },
+  "api": {
+  },
+  "errors": [
+    "#/resources/ResourceName/identifiers must have unique names"
+  ]
+}

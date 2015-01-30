@@ -1,0 +1,67 @@
+{
+  "resources": {
+    "service": {
+      "actions": {
+        "CreateThing": {
+          "request": { "operation": "CreateThing" }
+        }
+      },
+      "hasMany": {
+        "Things": {
+          "request": { "operation": "ListThings" },
+          "resource": {
+            "type": "Thing",
+            "identifiers": []
+          }
+        }
+      }
+    },
+    "resources": {
+      "Thing": {
+        "shape": "ShapeName",
+        "load": {
+          "request": { "operation": "DescribeThing" },
+          "path": "$"
+        },
+        "actions": {
+          "Delete": {
+            "request": { "operation": "DeleteThing" }
+          }
+        },
+        "batchActions": {
+          "Delete": {
+            "request": { "operation": "BatchDeleteThings" }
+          }
+        },
+        "hasMany": {
+          "RelatedThings": {
+            "request": { "operation": "ListThings" },
+            "resource": {
+              "type": "Thing",
+              "identifiers": []
+            }
+          }
+        }
+      }
+    }
+  },
+  "api": {
+    "operations": {
+    },
+    "shapes": {
+      "ShapeName": {
+        "type": "structure",
+        "members": {
+        }
+      }
+    }
+  },
+  "errors": [
+    "#/service/actions/CreateThing/request/operation is set but is not defined at api#/operations/CreateThing",
+    "#/service/hasMany/Things/request/operation is set but is not defined at api#/operations/ListThings",
+    "#/resources/Thing/load/request/operation is set but is not defined at api#/operations/DescribeThing",
+    "#/resources/Thing/actions/Delete/request/operation is set but is not defined at api#/operations/DeleteThing",
+    "#/resources/Thing/batchActions/Delete/request/operation is set but is not defined at api#/operations/BatchDeleteThings",
+    "#/resources/Thing/hasMany/RelatedThings/request/operation is set but is not defined at api#/operations/ListThings"
+  ]
+}

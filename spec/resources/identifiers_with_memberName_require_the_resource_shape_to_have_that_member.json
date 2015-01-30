@@ -1,0 +1,24 @@
+{
+  "resources": {
+    "resources": {
+      "ResourceName": {
+        "identifiers": [
+          { "name": "Id", "memberName": "ResourceId" }
+        ],
+        "shape": "ShapeName"
+      }
+    }
+  },
+  "api": {
+    "shapes": {
+      "ShapeName": {
+        "type": "structure",
+        "members": {
+        }
+      }
+    }
+  },
+  "errors": [
+    "#/resources/ResourceName/identifiers/0/memberName is not defined at api#/shapes/ShapeName/members/ResourceId"
+  ]
+}

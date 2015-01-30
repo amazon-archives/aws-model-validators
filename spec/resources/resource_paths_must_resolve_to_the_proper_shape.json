@@ -1,0 +1,156 @@
+{
+  "resources": {
+    "service": {
+      "actions": {
+        "InvalidOperation": {
+          "request": { "operation": "ThingOperation" },
+          "resource": {
+            "type": "Thing",
+            "identifiers": [],
+            "path": "Not.ThingData"
+          }
+        },
+        "ValidOperation": {
+          "request": { "operation": "ThingOperation" },
+          "resource": {
+            "type": "Thing",
+            "identifiers": [],
+            "path": "Prefix.Thing"
+          }
+        }
+      },
+      "hasMany": {
+        "InvalidOperation": {
+          "request": { "operation": "ThingOperation" },
+          "resource": {
+            "type": "Thing",
+            "identifiers": [],
+            "path": "Not.Things[]"
+          }
+        },
+        "ValidOperation": {
+          "request": { "operation": "ThingOperation" },
+          "resource": {
+            "type": "Thing",
+            "identifiers": [],
+            "path": "Things[]"
+          }
+        }
+      }
+    },
+    "resources": {
+      "Thing": {
+        "shape": "ThingShape",
+        "actions": {
+          "InvalidOperation": {
+            "request": { "operation": "ThingOperation" },
+            "resource": {
+              "type": "Thing",
+              "identifiers": [],
+              "path": "Not.ThingData"
+            }
+          },
+          "ValidOperation": {
+            "request": { "operation": "ThingOperation" },
+            "resource": {
+              "type": "Thing",
+              "identifiers": [],
+              "path": "Prefix.Thing"
+            }
+          }
+        },
+        "batchActions": {
+          "InvalidOperation": {
+            "request": { "operation": "ThingOperation" },
+            "resource": {
+              "type": "Thing",
+              "identifiers": [],
+              "path": "Not.ThingData"
+            }
+          },
+          "ValidOperation": {
+            "request": { "operation": "ThingOperation" },
+            "resource": {
+              "type": "Thing",
+              "identifiers": [],
+              "path": "Prefix.Thing"
+            }
+          }
+        },
+        "batchActions": {
+          "InvalidOperation": {
+            "request": { "operation": "ThingOperation" },
+            "resource": {
+              "type": "Thing",
+              "identifiers": [],
+              "path": "Not.ThingData"
+            }
+          },
+          "ValidOperation": {
+            "request": { "operation": "ThingOperation" },
+            "resource": {
+              "type": "Thing",
+              "identifiers": [],
+              "path": "Prefix.Thing"
+            }
+          }
+        },
+        "hasMany": {
+          "InvalidOperation": {
+            "request": { "operation": "ThingOperation" },
+            "resource": {
+              "type": "Thing",
+              "identifiers": [],
+              "path": "Not.ThingData"
+            }
+          },
+          "ValidOperation": {
+            "request": { "operation": "ThingOperation" },
+            "resource": {
+              "type": "Thing",
+              "identifiers": [],
+              "path": "Prefix.Thing"
+            }
+          }
+        }
+      }
+    }
+  },
+  "api": {
+    "operations": {
+      "ThingOperation": {
+        "output": { "shape": "ResponseShape" }
+      }
+    },
+    "shapes": {
+      "ResponseShape": {
+        "type": "structure",
+        "members": {
+          "Prefix": { "shape": "PrefixShape" },
+          "Things": { "shape": "ThingList" }
+        }
+      },
+      "ThingList": {
+        "type": "list",
+        "member": { "shape": "ThingShape" }
+      },
+      "PrefixShape": {
+        "type": "structure",
+        "members": {
+          "Thing": { "shape": "ThingShape" }
+        }
+      },
+      "ThingShape": {
+        "type": "structure",
+        "members": {}
+      }
+    }
+  },
+  "errors": [
+    "#/service/actions/InvalidOperation/resource/path must resolve to a \"ThingShape\" shape",
+    "#/service/hasMany/InvalidOperation/resource/path must resolve to a \"ThingShape\" shape",
+    "#/resources/Thing/actions/InvalidOperation/resource/path must resolve to a \"ThingShape\" shape",
+    "#/resources/Thing/batchActions/InvalidOperation/resource/path must resolve to a \"ThingShape\" shape",
+    "#/resources/Thing/hasMany/InvalidOperation/resource/path must resolve to a \"ThingShape\" shape"
+  ]
+}

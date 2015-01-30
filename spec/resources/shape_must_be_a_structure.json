@@ -1,0 +1,17 @@
+{
+  "resources": {
+    "resources": {
+      "ResourceName": {
+        "shape": "ShapeName"
+      }
+    }
+  },
+  "api": {
+    "shapes": {
+      "ShapeName": { "type": "string" }
+    }
+  },
+  "errors": [
+    "#/resources/ResourceName/shape must resolve to a structure"
+  ]
+}

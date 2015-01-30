@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "number" },
+    "metadata": { "type": "object" },
+    "operations": { "type": "object" },
+    "shapes": { "type": "object" }
+  }
+}

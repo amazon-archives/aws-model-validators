@@ -1,0 +1,30 @@
+{
+  "resources": {
+    "resources": {
+      "ResourceName": {
+        "load": {
+          "request": {
+            "operation": "OperationName"
+          },
+          "path": "$"
+        }
+      }
+    }
+  },
+  "api": {
+    "operations": {
+      "OperationName": {
+        "output": { "shape": "ResponseShape" }
+      }
+    },
+    "shapes": {
+      "ResponseShape": {
+        "type": "structure",
+        "members": {}
+      }
+    }
+  },
+  "errors": [
+    "#/resources/ResourceName/load requires #/resources/ResourceName/shape to be set"
+  ]
+}
