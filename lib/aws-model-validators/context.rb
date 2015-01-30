@@ -6,15 +6,13 @@ module Aws
       # @param [String<JSONPointer>] path
       # @param [Mixed] value
       # @param [Hash<String,Hash>] models
-      # @param [Array<String>] warnings
-      # @param [Array<String>] errors
-      def initialize(parent:nil, path:'#', value:, models:{}, warnings:[], errors:[])
+      # @param [Array<ValidationMessage>] results
+      def initialize(parent:nil, path:'#', value:, models:{}, results:[])
         @parent = parent
         @path = path
         @value = value
         @models = models
-        @warnings = warnings
-        @errors = errors
+        @results = results
       end
 
       # Constructs and returns a new context for the value at the given index.
@@ -26,8 +24,7 @@ module Aws
           path: "#{@path}/#{key}",
           value: value[key],
           models: @models,
-          warnings: @warnings,
-          errors: @errors,
+          results: @results
         )
       end
 
@@ -40,8 +37,8 @@ module Aws
       # @return [Object]
       attr_reader :value
 
-      # @return [Array<String>]
-      attr_reader :errors
+      # @return [Array<ErrorMessage, Warning>]
+      attr_reader :results
 
       # @return [Array<String>]
       attr_reader :warnings
@@ -55,14 +52,14 @@ module Aws
       # @param [String] error_msg
       # @return [void]
       def error(error_msg)
-        @errors << "#{path} #{error_msg}"
+        @results << ErrorMessage.new(path, error_msg)
         nil
       end
 
       # @param [String] warning_msg
       # @return [void]
       def warn(warning_msg)
-        @warnings << "#{path} #{warning_msg}"
+        @results << Warning.new(path, warning_msg)
         nil
       end
 
@@ -89,7 +86,7 @@ module Aws
       # Reduce inspect string to something useful.
       # @api private
       def inspect
-        parts = %w(path value warnings errors).map { |attr|
+        parts = %w(path value results).map { |attr|
           attr == 'value' ? attr_inspect : send(attr).inspect
         }
         "#<#{self.class.name} #{parts.join(' ')}>"

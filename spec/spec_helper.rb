@@ -26,14 +26,14 @@ class ValidatorTestRunner
       load_json(path).tap do |test_case|
 
         models = test_case.inject({}) { |h,(k,v)| h[k.to_sym] = v; h }
-        models.delete(:errors)
+        errors = models.delete(:errors)
 
         @group.it(File.basename(path[0..-6])) do
-          pending unless test_case['errors']
-          errors = described_class.new.validate(models)
-          unless errors == test_case['errors']
-            expected = test_case['errors'].map { |e| Regexp.new(Regexp.escape(e)) }
-            expect(errors).to match(expected)
+          pending unless errors
+          results = described_class.new.validate(models)
+          unless results == errors
+            errors = errors.map { |msg| Regexp.new(Regexp.escape(msg)) }
+            expect(results).to match(errors)
           end
         end
 

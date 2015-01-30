@@ -53,7 +53,7 @@ module Aws
         end
         validate_hash(context) if Hash === context.value
         validate_array(context) if Array === context.value
-        context.errors
+        context.results
       end
 
       def validate_hash(context)
