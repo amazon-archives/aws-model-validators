@@ -100,7 +100,6 @@ module Aws::ModelValidators
       end
     end
 
-
     # shape_must_be_a_structure
     v('#/resources/*/shape') do |c|
       shape = c.api['shapes'][c.value]
