@@ -28,7 +28,7 @@ module Aws::ModelValidators
     v('#/resources/(\w+)/identifiers/(\d+)/memberName') do |c, matches|
       resource_name = matches[1]
       shape_path = "#/resources/#{resource_name}/shape"
-      unless c.model(:resources)['resources'][resource_name]['shape']
+      unless c.resources['resources'][resource_name]['shape']
         c.error("requires #{shape_path} to be set")
       end
     end
@@ -37,12 +37,12 @@ module Aws::ModelValidators
     v('#/resources/(\w+)/identifiers/(\d+)/memberName') do |c, matches|
       resource_name = matches[1]
       shape_path = "#/resources/#{resource_name}/shape"
-      shape_name = c.model(:resources)['resources'][resource_name]['shape']
+      shape_name = c.resources['resources'][resource_name]['shape']
       if
         shape_name &&
-        c.model(:api)['shapes'][shape_name] &&
-        c.model(:api)['shapes'][shape_name]['type'] == 'structure' &&
-        !c.model(:api)['shapes'][shape_name]['members'].key?(c.value)
+        c.api['shapes'][shape_name] &&
+        c.api['shapes'][shape_name]['type'] == 'structure' &&
+        !c.api['shapes'][shape_name]['members'].key?(c.value)
       then
         c.error("is not defined at api#/shapes/#{shape_name}/members/#{c.value}")
       end
@@ -57,7 +57,7 @@ module Aws::ModelValidators
       #/resources/\w+/batchActions/\w+/request/operation
       #/resources/\w+/hasMany/\w+/request/operation
     )) do |c|
-      unless c.model(:api)['operations'][c.value]
+      unless c.api['operations'][c.value]
         c.error("is set but is not defined at api#/operations/#{c.value}")
       end
     end
@@ -84,9 +84,9 @@ module Aws::ModelValidators
     )) do |c|
       type = c.parent['type']
       from = c.parent.parent['request']['operation']
-      from = c.model(:api)['operations'][from]['output']
-      expected = c.model(:resources)['resources'][type]['shape']
-      resolved = PathResolver.new(c.model(:api)).resolve(c.value, from)
+      from = c.api['operations'][from]['output']
+      expected = c.resources['resources'][type]['shape']
+      resolved = PathResolver.new(c.api).resolve(c.value, from)
       unless expected == resolved
         c.error("must resolve to a \"#{expected}\" shape")
       end
@@ -95,7 +95,7 @@ module Aws::ModelValidators
     # load_requires_shape_to_be_set
     v('#/resources/(\w+)/load') do |c, matches|
       resource = matches[1]
-      unless c.model(:resources)['resources'][resource]['shape']
+      unless c.resources['resources'][resource]['shape']
         c.error("requires #/resources/#{resource}/shape to be set")
       end
     end
@@ -103,7 +103,7 @@ module Aws::ModelValidators
 
     # shape_must_be_a_structure
     v('#/resources/\w+/shape') do |c|
-      shape = c.model(:api)['shapes'][c.value]
+      shape = c.api['shapes'][c.value]
       if shape && shape['type'] != 'structure'
         c.error("must resolve to a structure")
       end
@@ -111,7 +111,7 @@ module Aws::ModelValidators
 
     # shape_must_be_defined_in_the_api
     v('#/resources/\w+/shape') do |c|
-      unless c.model(:api)['shapes'][c.value]
+      unless c.api['shapes'][c.value]
         c.error("not found at api#/shapes/#{c.value}")
       end
     end

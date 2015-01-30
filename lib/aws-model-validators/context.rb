@@ -66,18 +66,23 @@ module Aws
         nil
       end
 
-      # @param [Symbol] model_name This is the model suffix, such as
-      #   `:api`, `:resources`, `:paginators`, `:waiters`, etc.
-      # @return [Hash]
-      # @raise [ArgumentError] Raised when a model is asked for and not found.
-      def model(model_name)
-        if @models[model_name]
-          @models[model_name]
-        else
-          raise ArgumentError, "#{name} model not available to validate against"
-        end
+      def api
+        model(:api)
       end
 
+      def paginators
+        model(:paginators)
+      end
+
+      def waiters
+        model(:waiters)
+      end
+
+      def resources
+        model(:resources)
+      end
+
+      # Reduce inspect string to something useful.
       # @api private
       def inspect
         "#<#{self.class.name} path=#{path.inspect} value=#{value_inspect} warnings=#{warnings.inspect} errors=#{errors.inspect}>"
@@ -90,6 +95,18 @@ module Aws
         when Hash then "Hash<#{value.keys.join(', ')}>"
         when Array then "Array<#{value.size}"
         else value.inspect
+        end
+      end
+
+      # @param [Symbol] model_name This is the model suffix, such as
+      #   `:api`, `:resources`, `:paginators`, `:waiters`, etc.
+      # @return [Hash]
+      # @raise [ArgumentError] Raised when a model is asked for and not found.
+      def model(model_name)
+        if @models[model_name]
+          @models[model_name]
+        else
+          raise ArgumentError, "#{name} model not available to validate against"
         end
       end
 
