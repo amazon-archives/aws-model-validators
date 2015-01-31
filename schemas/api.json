@@ -1,10 +1,96 @@
 {
   "type": "object",
+  "required": ["version", "metadata", "operations", "shapes"],
   "additionalProperties": false,
   "properties": {
-    "version": { "type": "number" },
-    "metadata": { "type": "object" },
-    "operations": { "type": "object" },
-    "shapes": { "type": "object" }
+    "version":    { "$ref": "#/definitions/ModelFormatVersion" },
+    "metadata":   { "$ref": "#/definitions/MetadataMap" },
+    "operations": { "$ref": "#/definitions/OperationMap" },
+    "shapes":     { "$ref": "#/definitions/ShapeMap" }
+  },
+  "definitions": {
+    "MetadataMap": {
+      "type": "object",
+      "required": [
+        "endpointPrefix",
+        "apiVersion",
+        "protocol",
+        "serviceFullName"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "apiVersion": { "type": "string" },
+        "protocol": {
+          "type": "string",
+          "enum": [
+            "rest-xml",
+            "rest-json",
+            "json",
+            "query",
+            "ec2"
+          ]
+        },
+        "endpointPrefix": { "type": "string" },
+        "jsonVersion": {
+          "type": "string",
+          "enum": ["1.0", "1.1"]
+        },
+        "targetPrefix": { "type": "string" },
+        "serviceFullName": { "type": "string" },
+        "serviceAbbreviation": { "type": "string" },
+        "signatureVersion": {
+          "type": "string",
+          "enum": [
+            "v4",
+            "v2"
+          ]
+        }
+      }
+    },
+    "ModelFormatVersion": { "type": "number" },
+    "OperationMap": {
+      "type": "object"
+    },
+    "ShapeMap": {
+      "type": "object",
+      "additionalProperties": {
+        "anyOf": [
+          { "$ref": "#/definitions/Shapes/Structure" },
+          { "$ref": "#/definitions/Shapes/List" },
+          { "$ref": "#/definitions/Shapes/Map" },
+          { "$ref": "#/definitions/Shapes/Scalar" }
+        ]
+      }
+    },
+    "Shapes": {
+      "Structure": {
+        "type": "object",
+        "required": ["type", "members"],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["structure"]
+          },
+          "required": {
+            "type": "list"
+          },
+          "members": {
+          }
+        }
+      },
+      "List": {
+      },
+      "Map": {
+      },
+      "Scalar": {
+        "type": "object",
+        "required": ["type"],
+        "additionalProperties": false,
+        "properties": {
+          "type": { "type": "string" }
+        }
+      }
+    }
   }
 }

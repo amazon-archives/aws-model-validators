@@ -1,10 +1,26 @@
 {
   "api": {
-    "metadata": {
-    },
     "operations": {
+      "OperationName": {
+        "input": { "shape": "UsedStruct" }
+      }
     },
     "shapes": {
+      "UnusedStruct": {
+        "members": {
+          "String": { "shape": "UsedString" }
+        }
+      },
+      "UsedStruct": {
+        "members": {
+          "String": { "shape": "UsedString" }
+        }
+      },
+      "UnusedString": { "type": "string" },
+      "UsedString": { "type": "string" }
     }
-  }
+  },
+  "errors": [
+    "#/shapes contains unused shapes: UnusedStruct, UnusedString"
+  ]
 }

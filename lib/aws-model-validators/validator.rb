@@ -17,13 +17,16 @@ module Aws
       #   * `:waiters`
       #   * `:resources`
       #
-      def validate(models = {})
+      # @param [Hash<Symbol,Hash>] models
+      # @option options [Boolean] :apply_schema (true)
+      def validate(models = {}, options = {})
         models = load_models(models)
-        schema_errors = validate_schema(models)
-        if schema_errors.empty?
+        errors = []
+        errors = validate_schema(models) unless options[:apply_schema] == false
+        if errors.empty?
           validate_rules(new_context(models))
         else
-          schema_errors
+          errors
         end
       end
 
@@ -42,7 +45,8 @@ module Aws
       end
 
       def validate_schema(models)
-        JSON::Validator.fully_validate(self.class.schema, target(models))
+        errors = JSON::Validator.fully_validate(self.class.schema, target(models))
+        format_schema_errors(errors)
       end
 
       def validate_rules(context)
@@ -68,6 +72,16 @@ module Aws
         end
       end
 
+      def format_schema_errors(errors)
+        errors.map do |msg|
+          msg = msg.sub(/^The property '/, '')
+          msg = msg.sub(/'/, '')
+          msg = msg.sub(/ in schema \S+$/, '')
+          path = msg.split(' ').first
+          ErrorMessage.new(path, msg[(path.size+1)..-1])
+        end
+      end
+
       class << self
 
         def model_name
@@ -84,7 +98,7 @@ module Aws
 
         # Adds a validation rule for the given patterns.
         def validate(*patterns, &block)
-          patterns.each do |pattern|
+          patterns.flatten.each do |pattern|
             @rules << Rule.new(pattern, &block)
           end
         end

@@ -1,0 +1,41 @@
+{
+  "api": {
+    "operations": {
+      "InvalidOperation": {
+        "input": { "shape": "NonExistantShape" },
+        "output": { "shape": "NonExistantShape" }
+      },
+      "ValidOperation": {
+        "input": { "shape": "StructureShape" },
+        "output": { "shape": "StructureShape" }
+      }
+    },
+    "shapes": {
+      "StructureShape": {
+        "type": "structure",
+        "members": {
+          "Missing": { "shape": "NonExistantShape" },
+          "List": { "shape": "ListShape" },
+          "Map": { "shape": "MapShape" }
+        }
+      },
+      "ListShape": {
+        "type": "list",
+        "member": { "shape": "NonExistantShape" }
+      },
+      "MapShape": {
+        "type": "map",
+        "key": { "shape": "NonExistantShape" },
+        "value": { "shape": "NonExistantShape" }
+      }
+    }
+  },
+  "errors": [
+    "#/operations/InvalidOperation/input/shape references an undefined shape",
+    "#/operations/InvalidOperation/output/shape references an undefined shape",
+    "#/shapes/StructureShape/members/Missing/shape references an undefined shape",
+    "#/shapes/ListShape/member/shape references an undefined shape",
+    "#/shapes/MapShape/key/shape references an undefined shape",
+    "#/shapes/MapShape/value/shape references an undefined shape"
+  ]
+}

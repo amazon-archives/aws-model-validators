@@ -1,0 +1,10 @@
+{
+  "api": {
+    "metadata": {
+      "apiVersion": "1"
+    }
+  },
+  "errors": [
+    "#/metadata/apiVersion must be formatted like YYYY-MM-DD"
+  ]
+}

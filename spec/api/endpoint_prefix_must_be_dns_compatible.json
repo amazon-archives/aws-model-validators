@@ -1,0 +1,10 @@
+{
+  "api": {
+    "metadata": {
+      "endpointPrefix": "Svc"
+    }
+  },
+  "errors": [
+    "#/metadata/endpointPrefix must be dns-compatible"
+  ]
+}

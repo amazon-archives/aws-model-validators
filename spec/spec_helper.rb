@@ -20,6 +20,7 @@ class ValidatorTestRunner
   # Any test files in spec/validator/*.json where the basename matches
   # the given pattern will be executed.
   def run
+    runner = self
     @test_cases.each do |path|
       next if ENV['TEST_CASE'] && !File.basename(path).match(ENV['TEST_CASE'])
 
@@ -30,15 +31,23 @@ class ValidatorTestRunner
 
         @group.it(File.basename(path[0..-6])) do
           pending unless errors
-          results = described_class.new.validate(models)
-          unless results == errors
-            errors = errors.map { |msg| Regexp.new(Regexp.escape(msg)) }
-            expect(results).to match(errors)
+          results = described_class.new.validate(models, apply_schema: false)
+          unless runner.results_match?(results, errors)
+            expect(results).to eq(errors)
           end
         end
 
       end
     end
+  end
+
+  def results_match?(results, expected)
+    expected.each.with_index do |pattern, i|
+      unless results[i].to_s.match(Regexp.escape(pattern))
+        return false
+      end
+    end
+    true
   end
 
 end

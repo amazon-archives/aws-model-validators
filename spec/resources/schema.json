@@ -1,8 +1,0 @@
-{
-  "resources": {
-    "UnexpectedValue": {}
-  },
-  "errors": [
-    "The property '#/' contains additional properties [\"UnexpectedValue\"] outside of the schema when none are allowed in schema"
-  ]
-}

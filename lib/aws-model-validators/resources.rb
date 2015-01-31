@@ -71,7 +71,7 @@ module Aws::ModelValidators
       #/resources/*/batchActions/*/request/params
       #/resources/*/hasMany/*/request/params
     )) do |c|
-      #raise NotImplementedError
+      raise NotImplementedError
     end
 
     # resource_paths_must_resolve_to_the_proper_shape
