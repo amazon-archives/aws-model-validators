@@ -7,7 +7,7 @@ module Aws
       # @param [Mixed] value
       # @param [Hash<String,Hash>] models
       # @param [Array<ValidationMessage>] results
-      def initialize(parent:nil, path:'#', value:, models:{}, results:[])
+      def initialize(parent:nil, path:'', value:, models:{}, results:[])
         @parent = parent
         @path = path
         @value = value

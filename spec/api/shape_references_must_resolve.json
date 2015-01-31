@@ -31,11 +31,11 @@
     }
   },
   "errors": [
-    "#/operations/InvalidOperation/input/shape references an undefined shape",
-    "#/operations/InvalidOperation/output/shape references an undefined shape",
-    "#/shapes/StructureShape/members/Missing/shape references an undefined shape",
-    "#/shapes/ListShape/member/shape references an undefined shape",
-    "#/shapes/MapShape/key/shape references an undefined shape",
-    "#/shapes/MapShape/value/shape references an undefined shape"
+    "/operations/InvalidOperation/input/shape references an undefined shape",
+    "/operations/InvalidOperation/output/shape references an undefined shape",
+    "/shapes/StructureShape/members/Missing/shape references an undefined shape",
+    "/shapes/ListShape/member/shape references an undefined shape",
+    "/shapes/MapShape/key/shape references an undefined shape",
+    "/shapes/MapShape/value/shape references an undefined shape"
   ]
 }

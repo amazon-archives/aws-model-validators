@@ -19,6 +19,6 @@
     }
   },
   "errors": [
-    "#/resources/ResourceName/identifiers/0/memberName is not defined at api#/shapes/ShapeName/members/ResourceId"
+    "/resources/ResourceName/identifiers/0/memberName is not defined at api#/shapes/ShapeName/members/ResourceId"
   ]
 }

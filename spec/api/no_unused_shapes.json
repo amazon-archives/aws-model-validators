@@ -21,6 +21,6 @@
     }
   },
   "errors": [
-    "#/shapes contains unused shapes: UnusedStruct, UnusedString"
+    "/shapes contains unused shapes: UnusedStruct, UnusedString"
   ]
 }

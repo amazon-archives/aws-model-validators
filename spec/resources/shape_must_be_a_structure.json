@@ -12,6 +12,6 @@
     }
   },
   "errors": [
-    "#/resources/ResourceName/shape must resolve to a structure"
+    "/resources/ResourceName/shape must resolve to a structure"
   ]
 }

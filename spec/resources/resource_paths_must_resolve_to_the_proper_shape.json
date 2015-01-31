@@ -147,10 +147,10 @@
     }
   },
   "errors": [
-    "#/service/actions/InvalidOperation/resource/path must resolve to a \"ThingShape\" shape",
-    "#/service/hasMany/InvalidOperation/resource/path must resolve to a \"ThingShape\" shape",
-    "#/resources/Thing/actions/InvalidOperation/resource/path must resolve to a \"ThingShape\" shape",
-    "#/resources/Thing/batchActions/InvalidOperation/resource/path must resolve to a \"ThingShape\" shape",
-    "#/resources/Thing/hasMany/InvalidOperation/resource/path must resolve to a \"ThingShape\" shape"
+    "/service/actions/InvalidOperation/resource/path must resolve to a \"ThingShape\" shape",
+    "/service/hasMany/InvalidOperation/resource/path must resolve to a \"ThingShape\" shape",
+    "/resources/Thing/actions/InvalidOperation/resource/path must resolve to a \"ThingShape\" shape",
+    "/resources/Thing/batchActions/InvalidOperation/resource/path must resolve to a \"ThingShape\" shape",
+    "/resources/Thing/hasMany/InvalidOperation/resource/path must resolve to a \"ThingShape\" shape"
   ]
 }

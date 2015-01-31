@@ -4,14 +4,14 @@ module Aws::ModelValidators
   class Api < Validator
 
     # endpoint_prefix_must_be_dns_compatible
-    v('#/metadata/endpointPrefix') do |c|
+    v('/metadata/endpointPrefix') do |c|
       unless c.value.match(/^[a-z0-9][a-z0-9-]+[a-z0-9]$/)
         c.error("must be dns-compatible")
       end
     end
 
     # api_version_yyyy_mm_dd
-    v('#/metadata/apiVersion') do |c|
+    v('/metadata/apiVersion') do |c|
       unless c.value.match(/^\d{4}-\d{2}-\d{2}$/)
         c.error("must be formatted like YYYY-MM-DD")
       end
@@ -19,12 +19,12 @@ module Aws::ModelValidators
 
     # shape_references_must_resolve
     v(%w(
-      #/operations/*/input/shape
-      #/operations/*/output/shape
-      #/shapes/*/members/*/shape
-      #/shapes/*/member/shape
-      #/shapes/*/key/shape
-      #/shapes/*/value/shape
+      /operations/*/input/shape
+      /operations/*/output/shape
+      /shapes/*/members/*/shape
+      /shapes/*/member/shape
+      /shapes/*/key/shape
+      /shapes/*/value/shape
     )) do |c|
       shape_name = c.value
       unless c.api['shapes'].key?(shape_name)
@@ -33,7 +33,7 @@ module Aws::ModelValidators
     end
 
     # no_unused_shapes
-    v('#/shapes') do |c|
+    v('/shapes') do |c|
 
       unused_shapes = Set.new(c.value.keys)
 

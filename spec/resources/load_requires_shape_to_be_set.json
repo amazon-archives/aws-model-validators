@@ -25,6 +25,6 @@
     }
   },
   "errors": [
-    "#/resources/ResourceName/load requires #/resources/ResourceName/shape to be set"
+    "/resources/ResourceName/load requires /resources/ResourceName/shape to be set"
   ]
 }

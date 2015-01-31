@@ -11,6 +11,6 @@
     }
   },
   "errors": [
-    "#/resources/ResourceName/shape not found at api#/shapes/ShapeName"
+    "/resources/ResourceName/shape not found at api#/shapes/ShapeName"
   ]
 }

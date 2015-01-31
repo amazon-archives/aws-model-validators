@@ -5,6 +5,6 @@
     }
   },
   "errors": [
-    "#/metadata/apiVersion must be formatted like YYYY-MM-DD"
+    "/metadata/apiVersion must be formatted like YYYY-MM-DD"
   ]
 }

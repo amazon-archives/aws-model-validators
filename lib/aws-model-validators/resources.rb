@@ -9,7 +9,7 @@ module Aws::ModelValidators
     # TODO: resource_has_path_resolves
 
     # identifiers_may_not_be_prefixed_by_their_resource_name
-    v('#/resources/*/identifiers/*/name') do |c, matches|
+    v('/resources/*/identifiers/*/name') do |c, matches|
       resource_name = matches[1]
       if c.value.match(/^#{resource_name}/)
         c.error("must not be prefixed with '#{resource_name}'")
@@ -17,7 +17,7 @@ module Aws::ModelValidators
     end
 
     # identifiers_must_have_unique_names
-    v('#/resources/*/identifiers') do |c|
+    v('/resources/*/identifiers') do |c|
       names = c.value.map { |v| v['name'] }
       unless names.uniq == names
         c.error("must have unique names")
@@ -25,18 +25,18 @@ module Aws::ModelValidators
     end
 
     # identifiers_with_memberName_require_the_resource_to_have_a_shape
-    v('#/resources/*/identifiers/*/memberName') do |c, matches|
+    v('/resources/*/identifiers/*/memberName') do |c, matches|
       resource_name = matches[1]
-      shape_path = "#/resources/#{resource_name}/shape"
+      shape_path = "/resources/#{resource_name}/shape"
       unless c.resources['resources'][resource_name]['shape']
         c.error("requires #{shape_path} to be set")
       end
     end
 
     # identifiers_with_memberName_require_the_resource_shape_to_have_that_member
-    v('#/resources/*/identifiers/*/memberName') do |c, matches|
+    v('/resources/*/identifiers/*/memberName') do |c, matches|
       resource_name = matches[1]
-      shape_path = "#/resources/#{resource_name}/shape"
+      shape_path = "/resources/#{resource_name}/shape"
       shape_name = c.resources['resources'][resource_name]['shape']
       if
         shape_name &&
@@ -50,12 +50,12 @@ module Aws::ModelValidators
 
     # request_operation_must_exist
     v(*%w(
-      #/service/actions/*/request/operation
-      #/service/hasMany/*/request/operation
-      #/resources/*/load/request/operation
-      #/resources/*/actions/*/request/operation
-      #/resources/*/batchActions/*/request/operation
-      #/resources/*/hasMany/*/request/operation
+      /service/actions/*/request/operation
+      /service/hasMany/*/request/operation
+      /resources/*/load/request/operation
+      /resources/*/actions/*/request/operation
+      /resources/*/batchActions/*/request/operation
+      /resources/*/hasMany/*/request/operation
     )) do |c|
       unless c.api['operations'][c.value]
         c.error("is set but is not defined at api#/operations/#{c.value}")
@@ -64,23 +64,23 @@ module Aws::ModelValidators
 
     # request_params_target_must_resolve
     v(*%w(
-      #/service/actions/*/request/params
-      #/service/hasMany/*/request/params
-      #/resources/*/load/request/params
-      #/resources/*/actions/*/request/params
-      #/resources/*/batchActions/*/request/params
-      #/resources/*/hasMany/*/request/params
+      /service/actions/*/request/params
+      /service/hasMany/*/request/params
+      /resources/*/load/request/params
+      /resources/*/actions/*/request/params
+      /resources/*/batchActions/*/request/params
+      /resources/*/hasMany/*/request/params
     )) do |c|
       raise NotImplementedError
     end
 
     # resource_paths_must_resolve_to_the_proper_shape
     v(*%w(
-      #/service/actions/*/resource/path
-      #/service/hasMany/*/resource/path
-      #/resources/*/actions/*/resource/path
-      #/resources/*/batchActions/*/resource/path
-      #/resources/*/hasMany/*/resource/path
+      /service/actions/*/resource/path
+      /service/hasMany/*/resource/path
+      /resources/*/actions/*/resource/path
+      /resources/*/batchActions/*/resource/path
+      /resources/*/hasMany/*/resource/path
     )) do |c|
       type = c.parent['type']
       from = c.parent.parent['request']['operation']
@@ -93,15 +93,15 @@ module Aws::ModelValidators
     end
 
     # load_requires_shape_to_be_set
-    v('#/resources/*/load') do |c, matches|
+    v('/resources/*/load') do |c, matches|
       resource = matches[1]
       unless c.resources['resources'][resource]['shape']
-        c.error("requires #/resources/#{resource}/shape to be set")
+        c.error("requires /resources/#{resource}/shape to be set")
       end
     end
 
     # shape_must_be_a_structure
-    v('#/resources/*/shape') do |c|
+    v('/resources/*/shape') do |c|
       shape = c.api['shapes'][c.value]
       if shape && shape['type'] != 'structure'
         c.error("must resolve to a structure")
@@ -109,7 +109,7 @@ module Aws::ModelValidators
     end
 
     # shape_must_be_defined_in_the_api
-    v('#/resources/*/shape') do |c|
+    v('/resources/*/shape') do |c|
       unless c.api['shapes'][c.value]
         c.error("not found at api#/shapes/#{c.value}")
       end

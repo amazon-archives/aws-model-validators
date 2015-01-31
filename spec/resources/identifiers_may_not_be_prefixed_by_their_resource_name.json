@@ -12,7 +12,7 @@
   "api": {
   },
   "errors": [
-    "#/resources/ResourceName/identifiers/0/name must not be prefixed with 'ResourceName'",
-    "#/resources/ResourceName/identifiers/1/name must not be prefixed with 'ResourceName'"
+    "/resources/ResourceName/identifiers/0/name must not be prefixed with 'ResourceName'",
+    "/resources/ResourceName/identifiers/1/name must not be prefixed with 'ResourceName'"
   ]
 }

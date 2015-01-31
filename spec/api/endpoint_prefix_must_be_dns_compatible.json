@@ -5,6 +5,6 @@
     }
   },
   "errors": [
-    "#/metadata/endpointPrefix must be dns-compatible"
+    "/metadata/endpointPrefix must be dns-compatible"
   ]
 }
