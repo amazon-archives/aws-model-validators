@@ -8,17 +8,6 @@
       }
     }
   },
-  "api": {
-    "shapes": {
-      "ShapeName": {
-        "type": "structure",
-        "members": {
-          "ResourceId": { "shape": "String" }
-        }
-      },
-      "String": { "type": "string" }
-    }
-  },
   "errors": [
     "/resources/ResourceName/identifiers/0/memberName requires /resources/ResourceName/shape to be set"
   ]
