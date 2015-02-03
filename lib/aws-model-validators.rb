@@ -1,9 +1,6 @@
 module Aws
   module ModelValidators
 
-    # @api private
-    GEM_ROOT = File.expand_path('../../', __FILE__)
-
     # validators
     autoload :ApiV2, 'aws-model-validators/api_v2'
     autoload :PaginatorsV1, 'aws-model-validators/paginators_v1'
