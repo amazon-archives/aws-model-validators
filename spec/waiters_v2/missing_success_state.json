@@ -1,0 +1,22 @@
+{
+  "waiters": {
+    "waiters": {
+      "WaiterName": {
+        "operation": "OperationName",
+        "maxAttempts": 10,
+        "delay": 10,
+        "acceptors": [
+          { "state": "failure", "matcher": "status", "argument": 404 }
+        ]
+      }
+    }
+  },
+  "api": {
+    "operations": {
+      "OperationName": {}
+    }
+  },
+  "errors": [
+    "/waiters/WaiterName/acceptors must define at least one acceptor with a success state"
+  ]
+}

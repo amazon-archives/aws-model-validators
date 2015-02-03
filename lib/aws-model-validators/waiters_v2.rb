@@ -10,5 +10,12 @@ module Aws::ModelValidators
       end
     end
 
+    # missing_success_state
+    v('/waiters/*/acceptors') do |c|
+      if c.value.none? { |acceptor| acceptor['state'] == 'success' }
+        c.error("must define at least one acceptor with a success state")
+      end
+    end
+
   end
 end
