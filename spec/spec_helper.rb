@@ -4,8 +4,6 @@ require 'aws-model-validators'
 
 class ValidatorTestRunner
 
-  include Aws::ModelValidators::LoadJson
-
   def initialize(group, test_cases)
     @group = group
     @test_cases = test_cases
@@ -24,7 +22,7 @@ class ValidatorTestRunner
     @test_cases.each do |path|
       next if ENV['TEST_CASE'] && !File.basename(path).match(ENV['TEST_CASE'])
 
-      load_json(path).tap do |test_case|
+      Aws::ModelValidators.load_json(path).tap do |test_case|
 
         models = test_case.inject({}) { |h,(k,v)| h[k.to_sym] = v; h }
         errors = models.delete(:errors)

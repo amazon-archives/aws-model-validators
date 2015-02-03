@@ -10,7 +10,7 @@ module Aws
         name = klass.name.split('::').last.downcase.split(/(v\d+)/).join('_')
         schema = File.expand_path("../../../schemas/#{name}.json", __FILE__)
         klass.const_set(:MODEL_NAME, name.sub(/_v\d+$/, '').to_sym)
-        klass.const_set(:SCHEMA, LoadJson.load_json(schema))
+        klass.const_set(:SCHEMA, ModelValidators.load_json(schema))
         klass.const_set(:RULES, [])
         klass.send(:extend, Module.new do
           def v(patterns, &block)
@@ -46,7 +46,7 @@ module Aws
       private
 
       def load_models(models)
-        models.inject({}) { |h,(k,v)| h[k] = LoadJson.load_json(v); h }
+        models.inject({}) { |h,(k,v)| h[k] = ModelValidators.load_json(v); h }
       end
 
       def new_context(models)

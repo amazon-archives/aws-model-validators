@@ -13,7 +13,6 @@ module Aws
     # support classes
     autoload :Context, 'aws-model-validators/context'
     autoload :ErrorMessage, 'aws-model-validators/error_message'
-    autoload :LoadJson, 'aws-model-validators/load_json'
     autoload :PathResolver, 'aws-model-validators/path_resolver'
     autoload :Rule, 'aws-model-validators/rule'
     autoload :Validator, 'aws-model-validators/validator'
@@ -21,5 +20,24 @@ module Aws
     autoload :VERSION, 'aws-model-validators/version'
     autoload :Warning, 'aws-model-validators/warning'
 
+    class << self
+
+      def load_json(src)
+        case src
+        when Hash then src
+        when Pathname, String then JSON.load(read_file(src))
+        else
+          msg = "expected a path to a JSON document or hash got: #{src.class}"
+          raise ArgumentError, msg
+        end
+      end
+
+      private
+
+      def read_file(path)
+        File.open(path, 'r', encoding: 'UTF-8') { |f| f.read }
+      end
+
+    end
   end
 end
