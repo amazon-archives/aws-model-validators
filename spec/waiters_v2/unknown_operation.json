@@ -1,0 +1,30 @@
+{
+  "waiters": {
+    "waiters": {
+      "ValidWaiter": {
+        "operation": "OperationName",
+        "maxAttempts": 10,
+        "delay": 10,
+        "acceptors": [
+          { "state": "success", "matcher": "status", "argument": 200 }
+        ]
+      },
+      "InvalidWaiter": {
+        "operation": "BogusOperationName",
+        "maxAttempts": 10,
+        "delay": 10,
+        "acceptors": [
+          { "state": "success", "matcher": "status", "argument": 200 }
+        ]
+      }
+    }
+  },
+  "api": {
+    "operations": {
+      "OperationName": {}
+    }
+  },
+  "errors": [
+    "/waiters/InvalidWaiter/operation references operation not defined at api#/operations/BogusOperationName"
+  ]
+}
