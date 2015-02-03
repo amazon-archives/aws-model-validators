@@ -1,0 +1,10 @@
+{
+  "api": {
+    "metadata": {
+      "targetPrefix": "Prefix."
+    }
+  },
+  "errors": [
+    "/metadata/targetPrefix should not contain a trailing dot"
+  ]
+}

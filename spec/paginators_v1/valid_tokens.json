@@ -1,0 +1,73 @@
+{
+  "paginators": {
+    "pagination": {
+      "ValidExample": {
+        "limit_key": "Request.Limit",
+        "input_token": "Request.Token",
+        "output_token": "Response.NextToken",
+        "more_results": "Response.IsTruncated",
+        "result_key": "Response.Results"
+      },
+      "InvalidExample": {
+        "limit_key": "bad",
+        "input_token": "bad",
+        "output_token": "bad",
+        "more_results": "bad",
+        "result_key": "bad"
+      }
+    }
+  },
+  "api": {
+    "operations": {
+      "ValidExample": {
+        "input": { "shape": "InputShape" },
+        "output": { "shape": "OutputShape" }
+      },
+      "InvalidExample": {
+        "input": { "shape": "InputShape" },
+        "output": { "shape": "OutputShape" }
+      }
+    },
+    "shapes": {
+      "InputShape": {
+        "type": "structure",
+        "members": {
+          "Request": { "shape": "RequestShape" }
+        }
+      },
+      "OutputShape": {
+        "type": "structure",
+        "members": {
+          "Response": { "shape": "ResponseShape" }
+        }
+      },
+      "RequestShape": {
+        "type": "structure",
+        "members": {
+          "Token": { "shape": "StringShape" },
+          "Limit": { "shape": "StringShape" }
+        }
+      },
+      "ResponseShape": {
+        "type": "structure",
+        "members": {
+          "NextToken": { "shape": "StringShape" },
+          "Results": { "shape": "ListShape" },
+          "IsTruncated": { "shape": "BooleanShape" }
+        }
+      },
+      "ListShape": {
+        "type": "list",
+        "member": { "shape": "StringShape" }
+      },
+      "StringShape": { "type": "string" },
+      "BooleanShape": { "type": "string" }
+    }
+  },
+  "errors": [
+    "/pagination/InvalidExample/input_token does not resolve",
+    "/pagination/InvalidExample/output_token does not resolve",
+    "/pagination/InvalidExample/input_token does not resolve",
+    "/pagination/InvalidExample/input_token does not resolve"
+  ]
+}

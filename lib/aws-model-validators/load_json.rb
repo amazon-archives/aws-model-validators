@@ -11,12 +11,14 @@ module Aws
           raise ArgumentError, msg
         end
       end
+      module_function :load_json
 
       private
 
       def read_file(path)
         File.open(path, 'r', encoding: 'UTF-8') { |f| f.read }
       end
+      module_function :read_file
 
     end
   end

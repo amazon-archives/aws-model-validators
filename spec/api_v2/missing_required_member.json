@@ -1,0 +1,22 @@
+{
+  "api": {
+    "operations": {
+      "OperationName": {
+        "input": { "shape": "StructureShape" }
+      }
+    },
+    "shapes": {
+      "StructureShape": {
+        "type": "structure",
+        "required": ["Foo", "Bar"],
+        "members": {
+          "Foo": { "shape": "String" }
+        }
+      },
+      "String": { "type": "string" }
+    }
+  },
+  "errors": [
+    "/shapes/StructureShape/required references non-existent member `Bar`"
+  ]
+}

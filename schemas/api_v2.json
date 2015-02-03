@@ -12,12 +12,12 @@
     "MetadataMap": {
       "type": "object",
       "required": [
-        "endpointPrefix",
         "apiVersion",
+        "endpointPrefix",
         "protocol",
         "serviceFullName"
       ],
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "apiVersion": { "type": "string" },
         "protocol": {

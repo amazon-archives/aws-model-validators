@@ -1,5 +1,7 @@
 module Aws::ModelValidators
-  class Resources < Validator
+  class ResourcesV1
+
+    include Validator
 
     # TODO: has_many_request_params_may_not_be_input
     # TODO: service_has_resource_identifiers_must_be_input_or_literal
@@ -49,7 +51,7 @@ module Aws::ModelValidators
     end
 
     # request_operation_must_exist
-    v(*%w(
+    v(%w(
       /service/actions/*/request/operation
       /service/hasMany/*/request/operation
       /resources/*/load/request/operation
@@ -63,7 +65,7 @@ module Aws::ModelValidators
     end
 
     # request_params_target_must_resolve
-    v(*%w(
+    v(%w(
       /service/actions/*/request/params
       /service/hasMany/*/request/params
       /resources/*/load/request/params
@@ -75,7 +77,7 @@ module Aws::ModelValidators
     end
 
     # resource_paths_must_resolve_to_the_proper_shape
-    v(*%w(
+    v(%w(
       /service/actions/*/resource/path
       /service/hasMany/*/resource/path
       /resources/*/actions/*/resource/path

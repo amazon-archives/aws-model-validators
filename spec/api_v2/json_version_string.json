@@ -1,0 +1,10 @@
+{
+  "api": {
+    "metadata": {
+      "jsonVersion": 1.1
+    }
+  },
+  "errors": [
+    "/metadata/jsonVersion must be one of \"1.0\" or \"1.1\""
+  ]
+}

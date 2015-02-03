@@ -4,9 +4,22 @@ require 'pathname'
 
 module Aws
   module ModelValidators
-    class Validator
+    module Validator
 
-      extend LoadJson
+      def self.included(klass)
+        name = klass.name.split('::').last.downcase.split(/(v\d+)/).join('_')
+        schema = File.expand_path("../../../schemas/#{name}.json", __FILE__)
+        klass.const_set(:MODEL_NAME, name.sub(/_v\d+$/, '').to_sym)
+        klass.const_set(:SCHEMA, LoadJson.load_json(schema))
+        klass.const_set(:RULES, [])
+        klass.send(:extend, Module.new do
+          def v(patterns, &block)
+            Array(patterns).each do |pattern|
+              const_get(:RULES) << Rule.new(pattern, &block)
+            end
+          end
+        end)
+      end
 
       # @param [Hash] models A map of AWS models. Hash keys should be
       #   symbols and values should be loaded JSON hashes or string paths
@@ -33,7 +46,7 @@ module Aws
       private
 
       def load_models(models)
-        models.inject({}) { |h,(k,v)| h[k] = self.class.load_json(v); h }
+        models.inject({}) { |h,(k,v)| h[k] = LoadJson.load_json(v); h }
       end
 
       def new_context(models)
@@ -41,7 +54,7 @@ module Aws
       end
 
       def target(models)
-        models[self.class.model_name]
+        models[self.class::MODEL_NAME]
       end
 
       def validate_schema(models)
@@ -50,7 +63,7 @@ module Aws
       end
 
       def validate_rules(context)
-        self.class.rules.each do |rule|
+        self.class::RULES.each do |rule|
           if matches = rule.matches(context.path)
             rule.apply(context, matches)
           end
@@ -82,38 +95,6 @@ module Aws
         end
       end
 
-      class << self
-
-        def model_name
-          @model_name
-        end
-
-        def schema
-          @schema
-        end
-
-        def rules
-          @rules
-        end
-
-        # Adds a validation rule for the given patterns.
-        def validate(*patterns, &block)
-          patterns.flatten.each do |pattern|
-            @rules << Rule.new(pattern, &block)
-          end
-        end
-        alias v validate
-
-        def inherited(sub_class)
-          name = sub_class.name.split('::').last.downcase.to_sym
-          schema = File.expand_path("../../../schemas/#{name}.json", __FILE__)
-          schema = Pathname.new(schema)
-          sub_class.instance_variable_set("@model_name", name)
-          sub_class.instance_variable_set("@schema", load_json(schema))
-          sub_class.instance_variable_set("@rules", [])
-        end
-
-      end
     end
   end
 end

@@ -5,10 +5,10 @@ module Aws
     GEM_ROOT = File.expand_path('../../', __FILE__)
 
     # validators
-    autoload :Api, 'aws-model-validators/api'
-    autoload :Paginators, 'aws-model-validators/paginators'
-    autoload :Waiters, 'aws-model-validators/waiters'
-    autoload :Resources, 'aws-model-validators/resources'
+    autoload :ApiV2, 'aws-model-validators/api_v2'
+    autoload :PaginatorsV1, 'aws-model-validators/paginators_v1'
+    autoload :WaitersV2, 'aws-model-validators/waiters_v2'
+    autoload :ResourcesV1, 'aws-model-validators/resources_v1'
 
     # support classes
     autoload :Context, 'aws-model-validators/context'

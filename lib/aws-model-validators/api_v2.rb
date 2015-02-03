@@ -1,7 +1,34 @@
 require 'set'
 
 module Aws::ModelValidators
-  class Api < Validator
+  class ApiV2
+
+    include Validator
+
+    # json_protocol_metadata
+    v('/metadata/protocol') do |c|
+      if c.value == 'json'
+        metadata = c.parent
+        %w(jsonVersion targetPrefix).each do |key|
+          c.error("requires /metadata/#{key} to be set") unless metadata[key]
+        end
+      end
+    end
+
+    # json_version_string
+    v('/metadata/jsonVersion') do |c|
+      supported = %w(1.0 1.1)
+      unless supported.include?(c.value)
+        c.error("must be one of #{supported.map(&:inspect).join(' or ')}")
+      end
+    end
+
+    # target_prefix_contains_no_dot
+    v('/metadata/targetPrefix') do |c|
+      if c.value.match(/\.$/)
+        c.error("should not contain a trailing dot")
+      end
+    end
 
     # endpoint_prefix_must_be_dns_compatible
     v('/metadata/endpointPrefix') do |c|
@@ -29,6 +56,24 @@ module Aws::ModelValidators
       shape_name = c.value
       unless c.api['shapes'].key?(shape_name)
         c.error("references an undefined shape")
+      end
+    end
+
+    # missing_required_member
+    v('/shapes/*/required') do |c|
+      members = c.parent['members']
+      c.value.each do |required|
+        unless members.key?(required)
+          c.error("references non-existent member `#{required}`")
+        end
+      end
+    end
+
+    # missing_payload_member
+    v('/shapes/*/payload') do |c|
+      members = c.parent['members']
+      unless members.key?(c.value)
+        c.error("references non-existent member `#{c.value}`")
       end
     end
 

@@ -1,0 +1,11 @@
+{
+  "api": {
+    "metadata": {
+      "protocol": "json"
+    }
+  },
+  "errors": [
+    "/metadata/protocol requires /metadata/jsonVersion to be set",
+    "/metadata/protocol requires /metadata/targetPrefix to be set"
+  ]
+}

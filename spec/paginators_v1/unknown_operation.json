@@ -1,0 +1,16 @@
+{
+  "paginators": {
+    "pagination": {
+      "OperationName": {},
+      "UnknownOperation": {}
+    }
+  },
+  "api": {
+    "operations": {
+      "OperationName": {}
+    }
+  },
+  "errors": [
+    "/pagination/UnknownOperation references operation not found at api#/operations/UnknownOperation"
+  ]
+}
