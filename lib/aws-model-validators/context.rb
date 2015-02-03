@@ -28,6 +28,14 @@ module Aws
         )
       end
 
+      def children
+        case value
+        when Hash then value.keys.map { |key| child(key) }
+        when Array then (0...value.size).map { |index| child(index) }
+        else raise "children not support for #{value.class.name}"
+        end
+      end
+
       # @return [Context,nil] The parent context
       attr_reader :parent
 
@@ -83,24 +91,7 @@ module Aws
         model(:resources)
       end
 
-      # Reduce inspect string to something useful.
-      # @api private
-      def inspect
-        parts = %w(path value results).map { |attr|
-          attr == 'value' ? attr_inspect : send(attr).inspect
-        }
-        "#<#{self.class.name} #{parts.join(' ')}>"
-      end
-
       private
-
-      def value_inspect
-        case value
-        when Hash then "Hash<#{value.keys.join(', ')}>"
-        when Array then "Array<#{value.size}"
-        else value.inspect
-        end
-      end
 
       # @param [Symbol] model_name This is the model suffix, such as
       #   `:api`, `:resources`, `:paginators`, `:waiters`, etc.

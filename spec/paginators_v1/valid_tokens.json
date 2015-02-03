@@ -14,6 +14,20 @@
         "output_token": "bad",
         "more_results": "bad",
         "result_key": "bad"
+      },
+      "ValidPluralExample": {
+        "limit_key": "Request.Limit",
+        "input_token": ["Request.Token", "Request.Token2"],
+        "output_token": ["Response.NextToken", "Response.NextToken2"],
+        "more_results": "Response.IsTruncated",
+        "result_key": ["Response.Results", "Response.Results2"]
+      },
+      "InvalidPluralExample": {
+        "limit_key": "bad",
+        "input_token": ["bad", "bad2"],
+        "output_token": ["bad", "bad2"],
+        "more_results": "bad",
+        "result_key": ["bad", "bad2"]
       }
     }
   },
@@ -23,7 +37,15 @@
         "input": { "shape": "InputShape" },
         "output": { "shape": "OutputShape" }
       },
+      "ValidPluralExample": {
+        "input": { "shape": "InputShape" },
+        "output": { "shape": "OutputShape" }
+      },
       "InvalidExample": {
+        "input": { "shape": "InputShape" },
+        "output": { "shape": "OutputShape" }
+      },
+      "InvalidPluralExample": {
         "input": { "shape": "InputShape" },
         "output": { "shape": "OutputShape" }
       }
@@ -45,6 +67,7 @@
         "type": "structure",
         "members": {
           "Token": { "shape": "StringShape" },
+          "Token2": { "shape": "StringShape" },
           "Limit": { "shape": "StringShape" }
         }
       },
@@ -52,7 +75,9 @@
         "type": "structure",
         "members": {
           "NextToken": { "shape": "StringShape" },
+          "NextToken2": { "shape": "StringShape" },
           "Results": { "shape": "ListShape" },
+          "Results2": { "shape": "ListShape" },
           "IsTruncated": { "shape": "BooleanShape" }
         }
       },
@@ -65,9 +90,18 @@
     }
   },
   "errors": [
+    "/pagination/InvalidExample/limit_key does not resolve",
     "/pagination/InvalidExample/input_token does not resolve",
     "/pagination/InvalidExample/output_token does not resolve",
-    "/pagination/InvalidExample/input_token does not resolve",
-    "/pagination/InvalidExample/input_token does not resolve"
+    "/pagination/InvalidExample/more_results does not resolve",
+    "/pagination/InvalidExample/result_key does not resolve",
+    "/pagination/InvalidPluralExample/limit_key does not resolve",
+    "/pagination/InvalidPluralExample/input_token/0 does not resolve",
+    "/pagination/InvalidPluralExample/input_token/1 does not resolve",
+    "/pagination/InvalidPluralExample/output_token/0 does not resolve",
+    "/pagination/InvalidPluralExample/output_token/1 does not resolve",
+    "/pagination/InvalidPluralExample/more_results does not resolve",
+    "/pagination/InvalidPluralExample/result_key/0 does not resolve",
+    "/pagination/InvalidPluralExample/result_key/1 does not resolve"
   ]
 }

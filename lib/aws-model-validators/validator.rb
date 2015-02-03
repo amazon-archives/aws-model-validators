@@ -6,6 +6,7 @@ module Aws
   module ModelValidators
     module Validator
 
+      # @api private
       def self.included(klass)
         name = klass.name.split('::').last.downcase.split(/(v\d+)/).join('_')
         schema = File.expand_path("../../../schemas/#{name}.json", __FILE__)
