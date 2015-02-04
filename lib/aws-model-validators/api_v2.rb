@@ -32,7 +32,7 @@ module Aws::ModelValidators
 
     # endpoint_prefix_must_be_dns_compatible
     v('/metadata/endpointPrefix') do |c|
-      unless c.value.match(/^[a-z0-9][a-z0-9-]+[a-z0-9]$/)
+      unless c.value.match(/^[a-z0-9][a-z0-9-]*[a-z0-9]$/)
         c.error("must be dns-compatible")
       end
     end
