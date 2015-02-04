@@ -64,7 +64,7 @@ module Aws::ModelValidators
       end
     end
 
-    # request_params_target_must_resolve
+    # request_accepts_input
     v(%w(
       /service/actions/*/request/params
       /service/hasMany/*/request/params
@@ -73,7 +73,23 @@ module Aws::ModelValidators
       /resources/*/batchActions/*/request/params
       /resources/*/hasMany/*/request/params
     )) do |c|
-      raise NotImplementedError
+      if operation = c.api['operations'][c.parent.parent['operation']]
+        unless operation['input'] || c.value.empty?
+          c.error("is set but #{operation['name']} does not accept input")
+        end
+      end
+    end
+
+    # request_params_target_must_resolve
+    v(%w(
+      /service/actions/*/request/params/*/target
+      /service/hasMany/*/request/params/*/target
+      /resources/*/load/request/params/*/target
+      /resources/*/actions/*/request/params/*/target
+      /resources/*/batchActions/*/request/params/*/target
+      /resources/*/hasMany/*/request/params/*/target
+    )) do |c|
+      #raise NotImplementedError
     end
 
     # resource_paths_must_resolve_to_the_proper_shape
@@ -85,9 +101,9 @@ module Aws::ModelValidators
       /resources/*/hasMany/*/resource/path
     )) do |c|
       type = c.parent['type']
+      expected = c.resources['resources'][type]['shape']
       from = c.parent.parent['request']['operation']
       from = c.api['operations'][from]['output']
-      expected = c.resources['resources'][type]['shape']
       resolved = PathResolver.new(c.api).resolve(c.value, from)
       unless expected == resolved
         c.error("must resolve to a \"#{expected}\" shape")
