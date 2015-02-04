@@ -27,3 +27,8 @@ errors = Aws::ModelValidators::ResourcesV2.validate(
 | waiters      | v2      | Aws::ModelValidators::WaitersV2    |
 | resources    | v1      | Aws::ModelValidators::ResourcesV1  |
 
+## Todo
+
+* Finish JSON schemas for api, paginators, and waiters.
+* Expand validation tests for resources
+
