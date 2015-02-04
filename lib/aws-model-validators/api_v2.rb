@@ -80,37 +80,50 @@ module Aws::ModelValidators
     # no_unused_shapes
     v('/shapes') do |c|
 
-      unused_shapes = Set.new(c.value.keys)
+      shape_map = c.value
+
+      visited_shapes = Set.new
 
       c.parent['operations'].values.each do |operation|
         %w(input output).each do |key|
           if ref = operation[key]
-            unused_shapes.delete(ref['shape'])
+            visit(ref, shape_map, visited_shapes)
           end
         end
         Array(operation['errors']).each do |error_ref|
-          unused_shapes.delete(error_ref['shape'])
+          visit(error_ref, shape_map, visited_shapes)
         end
       end
 
-      c.value.each do |_,shape|
-        case shape['type']
-        when 'structure'
-          shape['members'].values.each do |member|
-            unused_shapes.delete(member['shape'])
-          end
-        when 'list'
-          unused_shapes.delete(shape['member']['shape'])
-        when 'map'
-          unused_shapes.delete(shape['key']['shape'])
-          unused_shapes.delete(shape['value']['shape'])
-        end
-      end
-
+      unused_shapes = c.api['shapes'].keys - visited_shapes.to_a
       unless unused_shapes.empty?
         c.error("contains unused shapes: #{unused_shapes.to_a.join(', ')}")
       end
     end
 
+    class << self
+
+      # recursively visited shapes from the given ref.
+      def visit(ref, shapes, visited, &block)
+
+        # terminal case for recursive shape references
+        return visited if visited.include?(ref['shape'])
+        visited.add(ref['shape'])
+
+        if shape = shapes[ref['shape']]
+          case shape['type']
+          when 'structure'
+            shape['members'].each { |_,member| visit(member, shapes, visited) }
+          when 'list'
+            visit(shape['member'], shapes, visited)
+          when 'map'
+            visit(shape['key'], shapes, visited)
+            visit(shape['value'], shapes, visited)
+          end
+        end
+        visited
+      end
+
+    end
   end
 end

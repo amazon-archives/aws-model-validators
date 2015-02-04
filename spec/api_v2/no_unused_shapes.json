@@ -11,30 +11,52 @@
     },
     "shapes": {
       "UnusedStruct": {
+        "type": "structure",
         "members": {
-          "String": { "shape": "UsedString" }
+          "String": { "shape": "UnusedString" }
         }
       },
       "InputStruct": {
+        "type": "structure",
         "members": {
           "String": { "shape": "UsedString" }
         }
       },
       "OutputStruct": {
+        "type": "structure",
         "members": {
-          "String": { "shape": "UsedString" }
+          "String": { "shape": "UsedString" },
+          "List": { "shape": "ListShape" }
         }
       },
       "ErrorShape": {
+        "type": "structure",
         "members": {
           "String": { "shape": "UsedString" }
         }
       },
+      "ListShape": {
+        "type": "list",
+        "member": { "shape": "MapShape" }
+      },
+      "MapShape": {
+        "type": "map",
+        "key": { "shape": "MapKeyShape" },
+        "value": { "shape": "MapValueShape" }
+      },
+      "MapKeyShape": { "type": "string" },
+      "MapValueShape": { "type": "string" },
       "UnusedString": { "type": "string" },
-      "UsedString": { "type": "string" }
+      "UsedString": { "type": "string" },
+      "UnusedRecursiveShape": {
+        "type": "structure",
+        "members": {
+          "Self": { "shape": "UnusedRecursiveShape" }
+        }
+      }
     }
   },
   "errors": [
-    "/shapes contains unused shapes: UnusedStruct, UnusedString"
+    "/shapes contains unused shapes: UnusedStruct, UnusedString, UnusedRecursiveShape"
   ]
 }
