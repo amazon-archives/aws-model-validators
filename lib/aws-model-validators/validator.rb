@@ -59,7 +59,8 @@ module Aws
       end
 
       def validate_schema(models)
-        errors = JSON::Validator.fully_validate(self.class.schema, target(models))
+        schema = self.class::SCHEMA
+        errors = JSON::Validator.fully_validate(schema, target(models))
         format_schema_errors(errors)
       end
 
