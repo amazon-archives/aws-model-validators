@@ -1,6 +1,6 @@
 {
   "type": "object",
-  "required": ["version", "metadata", "operations", "shapes"],
+  "required": ["metadata", "operations", "shapes"],
   "additionalProperties": false,
   "properties": {
     "version":    { "$ref": "#/definitions/ModelFormatVersion" },
