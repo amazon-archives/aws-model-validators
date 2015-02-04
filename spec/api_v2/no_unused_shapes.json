@@ -2,7 +2,11 @@
   "api": {
     "operations": {
       "OperationName": {
-        "input": { "shape": "UsedStruct" }
+        "input": { "shape": "InputStruct" },
+        "output": { "shape": "OutputStruct" },
+        "errors": [
+          { "shape": "ErrorShape" }
+        ]
       }
     },
     "shapes": {
@@ -11,7 +15,17 @@
           "String": { "shape": "UsedString" }
         }
       },
-      "UsedStruct": {
+      "InputStruct": {
+        "members": {
+          "String": { "shape": "UsedString" }
+        }
+      },
+      "OutputStruct": {
+        "members": {
+          "String": { "shape": "UsedString" }
+        }
+      },
+      "ErrorShape": {
         "members": {
           "String": { "shape": "UsedString" }
         }

@@ -88,6 +88,9 @@ module Aws::ModelValidators
             unused_shapes.delete(ref['shape'])
           end
         end
+        Array(operation['errors']).each do |error_ref|
+          unused_shapes.delete(error_ref['shape'])
+        end
       end
 
       c.value.each do |_,shape|
