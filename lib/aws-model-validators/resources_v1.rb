@@ -133,5 +133,20 @@ module Aws::ModelValidators
       end
     end
 
+    # resource_identifier_target_must_match_identifiers
+    v(%w(
+      /resources/*/has/*/resource
+      /resources/*/hasMany/*/resource
+      /resources/*/actions/*/resource
+      /resources/*/batchActions/*/resource
+    )) do |c|
+      resource = c.resources['resources'][c.value['type']]
+      targets = c.value['identifiers'].map { |v| v['target'] }
+      identifiers = resource['identifiers'].map { |v| v['name'] }
+      unless targets == identifiers
+        c.error("identifier targets do not match #{c.value['type']} identifiers: #{targets} vs. #{identifiers}")
+      end
+    end
+
   end
 end

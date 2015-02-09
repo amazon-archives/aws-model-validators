@@ -1,0 +1,28 @@
+{
+  "resources": {
+    "resources": {
+      "Thing": {
+        "identifiers": [
+          { "name": "LastName" },
+          { "name": "FirstName" }
+        ],
+        "has": {
+          "SubThing": {
+            "resource": {
+              "type": "Thing",
+              "identifiers": [
+                {"target": "FirstName", "source": "input"},
+                {"target": "LastName", "source": "identifier", "name": "LastName"}
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "api": {
+  },
+  "errors": [
+    "/resources/Thing/has/SubThing/resource identifier targets do not match Thing identifiers: [\"FirstName\", \"LastName\"] vs. [\"LastName\", \"FirstName\"]"
+  ]
+}
