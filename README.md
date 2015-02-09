@@ -11,7 +11,7 @@ require 'aws-model-validators'
 errors = Aws::ModelValidators::ApiV2.validate(api: '/path/to/api.json')
 
 # validating a resource model requires the API and waiter models
-errors = Aws::ModelValidators::ResourcesV2.validate(
+errors = Aws::ModelValidators::ResourcesV1.new.validate(
   resources: '/path/to/resources.json',
   api: '/path/to/api.json',
   waiters: '/path/to/waiters.json'
