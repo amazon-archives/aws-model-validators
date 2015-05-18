@@ -21,7 +21,7 @@ errors = Aws::ModelValidators::ResourcesV1.new.validate(
 ## Supported Model Formats
 
 | Model        | Version | Validator                          |
-| ------------ - ------- ------------------------------------ |
+| ------------ | ------- | ---------------------------------- |
 | api          | v2      | Aws::ModelValidators::ApiV1        |
 | paginators   | v1      | Aws::ModelValidators::PaginatorsV1 |
 | waiters      | v2      | Aws::ModelValidators::WaitersV2    |
