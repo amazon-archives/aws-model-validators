@@ -35,7 +35,7 @@ errors = Aws::ModelValidators::ResourcesV1.new.validate(
 ## License
 
 This library is distributed under the
-[apache license, version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
+[Apache License, version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
 
 ```no-highlight
 copyright 2015. amazon web services, inc. all rights reserved.
